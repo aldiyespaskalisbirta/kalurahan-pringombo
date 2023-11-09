@@ -1,0 +1,99 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String
+  emailVerified DateTime?
+  image         String?
+}
+
+model Penduduk {
+  nik                  String            @id
+  nokk                 String?
+  nama                 String
+  alias                String?
+  agama                String?
+  jenis_kelamin        String?
+  kewarganegaraan      String            @default("INDONESIA")
+  padukuhan            String?
+  rt                   Int?
+  rw                   Int?
+  pendidikan_kk        String?
+  pendidikan_sdt       String?
+  pekerjaan            String?
+  tanggal_lahir        DateTime?
+  tempat_lahir         String?
+  umur                 Int?
+  status_kawin         String?
+  shdk                 String?
+  gol_darah            String?
+  nama_ayah            String?
+  nama_ibu             String?
+  jabatan_di_kalurahan String            @default("PENDUDUK")
+  status_duk           String?
+  suket_usaha          SuketUsaha[]
+  suket_kematian       SuketKematian?
+  pengantar_skck       PengantarSKCK?
+  sktm                 SuketTidakMampu[]
+}
+
+model paukuhan {
+  dukuh_id       String @id
+  nama_padukuhan String
+  nama_dukuh     String
+  struktu_desa   String
+}
+
+model SuketUsaha {
+  no_surat        String   @id
+  usaha_sampingan String?
+  di_kalurahan    String?
+  di_kapenawon    String?
+  di_kabupaten    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  pendudukId      String
+  penduduk        Penduduk @relation(fields: [pendudukId], references: [nik])
+}
+
+model SuketKematian {
+  no_surat         String    @id
+  pendudukId       String    @unique
+  penduduk         Penduduk  @relation(fields: [pendudukId], references: [nik])
+  lokasi_meninggal String?
+  tanggal_kematian DateTime?
+  anak_ke          Int?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model PengantarSKCK {
+  no_surat   String   @id
+  pendudukId String   @unique
+  penduduk   Penduduk @relation(fields: [pendudukId], references: [nik])
+  keperluan  String?
+  no_polisi  String?
+  no_reg_pok String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model SuketTidakMampu {
+  no_surat       String   @id
+  pendudukId     String
+  penduduk       Penduduk @relation(fields: [pendudukId], references: [nik])
+  nama_sekolah   String?
+  fakultas_prodi String?
+  kelas_semester String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

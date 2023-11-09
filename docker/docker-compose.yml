@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: pringombo
+      POSTGRES_PASSWORD: pringombo123
+      POSTGRES_DB: pringombo
+    ports:
+      - 5432:5432
