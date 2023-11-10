@@ -1,14 +1,14 @@
-import {
-  getDataAyahId,
-  getDataIbuId,
-  getPendudukId,
-} from "@/actions/get-penduduk-id";
-
 import Actions from "./_components/actions";
 import { decodeData } from "@/lib/encrypt/decode";
 import { formatDateStrip } from "@/lib/format/format-date-strip";
 import Link from "next/link";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import {
+  getPendudukById,
+  getDataAyah,
+  getDataIbu,
+  getDataKeluarga,
+} from "@/actions/penduduk-actions";
 
 type Props = {
   params: {
@@ -17,20 +17,15 @@ type Props = {
 };
 async function PendudukIdPage({ params }: Props) {
   const nik = decodeURIComponent(params.nik);
-  const data = await getPendudukId(nik);
+  const data = await getPendudukById(nik);
   if (!data) {
     return null;
   }
+  const nokk = decodeURIComponent(data.nokk!);
+  const data_ayah = await getDataAyah(nokk, data.nama_ayah!);
 
-  const data_ayah = await getDataAyahId(
-    decodeURIComponent(data.nokk!),
-    data.nama_ayah!
-  );
+  const data_ibu = await getDataIbu(nokk, data.nama_ibu!);
 
-  const data_ibu = await getDataIbuId(
-    decodeURIComponent(data.nokk!),
-    data.nama_ibu!
-  );
   return (
     <div className="p-6">
       <div className="w-full">

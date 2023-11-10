@@ -1,9 +1,21 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 
-export async function getAllSktm(nik: string) {
-  const surat = await prisma.suketTidakMampu.findMany({
+export async function getAllSktm() {
+  const surat = await prisma.sKTM.findMany();
+
+  if (!surat) {
+    return null;
+  }
+
+  return surat;
+}
+
+export async function getSktmOwner(nik_ortu: string) {
+  const surat = await prisma.sKTM.findMany({
     where: {
-      pendudukId: nik,
+      nik_ortu: nik_ortu,
     },
   });
 
@@ -14,11 +26,11 @@ export async function getAllSktm(nik: string) {
   return surat;
 }
 
-export async function getSktmById(nik: string, no_surat: string) {
-  const surat = await prisma.suketTidakMampu.findUnique({
+export async function getSktmById(nik_ortu: string, no_surat: string) {
+  const surat = await prisma.sKTM.findUnique({
     where: {
       no_surat,
-      pendudukId: nik,
+      nik_ortu: nik_ortu,
     },
   });
 

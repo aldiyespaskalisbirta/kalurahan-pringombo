@@ -5,12 +5,20 @@ export async function POST(
   req: Request,
   { params }: { params: { nik: string } }
 ) {
-  const { no_surat } = await req.json();
+  const values = await req.json();
   try {
+    const penduduk = await prisma.penduduk.findUnique({
+      where: {
+        nik: params.nik,
+      },
+    });
+
+    if (!penduduk) {
+      return new NextResponse("NIK Tidak ditemukan", { status: 404 });
+    }
     const createSuketUsaha = await prisma.suketUsaha.create({
       data: {
-        pendudukId: params.nik,
-        no_surat,
+        ...values,
       },
     });
 

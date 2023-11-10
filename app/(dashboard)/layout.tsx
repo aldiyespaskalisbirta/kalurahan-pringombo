@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import { Navbar } from "./_components/navbar";
 import { Sidebar } from "./_components/sidebar";
+
 import LoadingPage from "@/components/loading";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {

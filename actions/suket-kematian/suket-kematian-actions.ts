@@ -1,12 +1,9 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 
-export async function getSuketKematianById(nik: string, no_surat: string) {
-  const surat = await prisma.suketKematian.findUnique({
-    where: {
-      no_surat,
-      pendudukId: nik,
-    },
-  });
+export async function getAllSuketKematian() {
+  const surat = await prisma.suketKematian.findMany();
 
   if (!surat) {
     return null;
@@ -15,9 +12,10 @@ export async function getSuketKematianById(nik: string, no_surat: string) {
   return surat;
 }
 
-export async function getSuketKematian(nik: string) {
-  const surat = await prisma.suketKematian.findFirst({
+export async function getSuketKematianById(nik: string, no_surat: string) {
+  const surat = await prisma.suketKematian.findUnique({
     where: {
+      no_surat,
       pendudukId: nik,
     },
   });

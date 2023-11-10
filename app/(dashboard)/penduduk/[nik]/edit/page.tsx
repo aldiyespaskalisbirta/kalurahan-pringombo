@@ -1,4 +1,4 @@
-import { getPendudukId } from "@/actions/get-penduduk-id";
+import { getPendudukById } from "@/actions/penduduk-actions";
 import { EditAgama } from "@/components/penduduk/edit-agama";
 import { EditGolDarah } from "@/components/penduduk/edit-gol-darah";
 import { EditJenisKelamin } from "@/components/penduduk/edit-jenis-kelamin";
@@ -31,7 +31,7 @@ type Props = {
 
 async function EditPage({ params }: Props) {
   const nik = decodeURIComponent(params.nik);
-  const data = await getPendudukId(nik);
+  const data = await getPendudukById(nik);
   if (!data) {
     return null;
   }

@@ -17,13 +17,13 @@ model User {
 }
 
 model Penduduk {
-  nik                  String            @id
+  nik                  String         @id
   nokk                 String?
   nama                 String
   alias                String?
   agama                String?
   jenis_kelamin        String?
-  kewarganegaraan      String            @default("INDONESIA")
+  kewarganegaraan      String         @default("INDONESIA")
   padukuhan            String?
   rt                   Int?
   rw                   Int?
@@ -38,12 +38,12 @@ model Penduduk {
   gol_darah            String?
   nama_ayah            String?
   nama_ibu             String?
-  jabatan_di_kalurahan String            @default("PENDUDUK")
+  jabatan_di_kalurahan String         @default("PENDUDUK")
   status_duk           String?
   suket_usaha          SuketUsaha[]
   suket_kematian       SuketKematian?
   pengantar_skck       PengantarSKCK?
-  sktm                 SuketTidakMampu[]
+  sktm                 SKTM[]
 }
 
 model paukuhan {
@@ -87,13 +87,14 @@ model PengantarSKCK {
   updatedAt  DateTime @updatedAt
 }
 
-model SuketTidakMampu {
+model SKTM {
   no_surat       String   @id
-  pendudukId     String
-  penduduk       Penduduk @relation(fields: [pendudukId], references: [nik])
-  nama_sekolah   String?
+  nik_ortu       String
+  nik_anak       String
+  penduduk       Penduduk @relation(fields: [nik_ortu], references: [nik])
+  nama_instansi  String?
   fakultas_prodi String?
-  kelas_semester String?
+  kelas_semester Int?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }

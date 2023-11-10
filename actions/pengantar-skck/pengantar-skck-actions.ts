@@ -1,12 +1,9 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 
-export async function getPengantarSkckById(nik: string, no_surat: string) {
-  const surat = await prisma.pengantarSKCK.findUnique({
-    where: {
-      no_surat,
-      pendudukId: nik,
-    },
-  });
+export async function getAllPengantarSkck() {
+  const surat = await prisma.pengantarSKCK.findMany();
 
   if (!surat) {
     return null;
@@ -15,9 +12,10 @@ export async function getPengantarSkckById(nik: string, no_surat: string) {
   return surat;
 }
 
-export async function getPengantarSkck(nik: string) {
-  const surat = await prisma.pengantarSKCK.findFirst({
+export async function getPengantarSkckById(nik: string, no_surat: string) {
+  const surat = await prisma.pengantarSKCK.findUnique({
     where: {
+      no_surat,
       pendudukId: nik,
     },
   });
