@@ -34,10 +34,6 @@ export async function POST(req: Request) {
       return new NextResponse("Nomor Surat Sudah Ada", { status: 409 });
     }
 
-    if (ortu.nokk != anak.nokk) {
-      return new NextResponse("No KK Tidak Sesuai", { status: 406 });
-    }
-
     const createSktm = await prisma.sKTM.create({
       data: {
         ...values,

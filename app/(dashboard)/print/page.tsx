@@ -25,6 +25,9 @@ async function PrintPage() {
         <Link href="/print/pengantar-skck">
           <Button>PENGANTAR SKCK</Button>
         </Link>
+        <Link href="/print/ijin-keramaian">
+          <Button>IZIN KERAMAIAN</Button>
+        </Link>
       </div>
       <DataTable columns={columns} data={data} />
     </div>

@@ -219,7 +219,7 @@ function SuketKematianPDF({ nik, data }: Props) {
           </div>
           <div className="w-full mt-8">
             <p className="text-justify text-lg">
-              Orang tersebut meninggal dunia di Padukuhan{" "}
+              Orang tersebut meninggal dunia di{" "}
               {data.surat?.lokasi_meninggal
                 ? formatString(data.surat?.lokasi_meninggal)
                 : "(.....)"}{" "}

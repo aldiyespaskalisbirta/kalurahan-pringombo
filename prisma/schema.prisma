@@ -17,13 +17,13 @@ model User {
 }
 
 model Penduduk {
-  nik                  String         @id
+  nik                  String                    @id
   nokk                 String?
   nama                 String
   alias                String?
   agama                String?
   jenis_kelamin        String?
-  kewarganegaraan      String         @default("INDONESIA")
+  kewarganegaraan      String                    @default("INDONESIA")
   padukuhan            String?
   rt                   Int?
   rw                   Int?
@@ -38,12 +38,13 @@ model Penduduk {
   gol_darah            String?
   nama_ayah            String?
   nama_ibu             String?
-  jabatan_di_kalurahan String         @default("PENDUDUK")
+  jabatan_di_kalurahan String                    @default("PENDUDUK")
   status_duk           String?
   suket_usaha          SuketUsaha[]
   suket_kematian       SuketKematian?
   pengantar_skck       PengantarSKCK?
   sktm                 SKTM[]
+  izinKeramaian        IzinKeramaianOnPenduduk[]
 }
 
 model paukuhan {
@@ -97,4 +98,28 @@ model SKTM {
   kelas_semester Int?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+}
+
+model IzinKeramaian {
+  no_surat          String    @id
+  jenis_keramaian   String?
+  keperluan         String?
+  tempat_keramaian  String?
+  tanggal_keramaian DateTime?
+  waktu_keramaian   String?
+  lama_keramaian    String?
+
+  penduduk IzinKeramaianOnPenduduk[]
+}
+
+model IzinKeramaianOnPenduduk {
+  pendudukId      String
+  penduduk        Penduduk      @relation(fields: [pendudukId], references: [nik])
+  izinKeramaianId String
+  izinKeramaian   IzinKeramaian @relation(fields: [izinKeramaianId], references: [no_surat])
+  sebagai         String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@id([pendudukId, izinKeramaianId])
 }

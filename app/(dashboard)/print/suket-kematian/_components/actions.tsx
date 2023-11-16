@@ -194,7 +194,7 @@ function Actions() {
                             <Input
                               className="mb-5"
                               disabled={isSubmitting}
-                              placeholder="Lokasi padukuhan"
+                              placeholder="Lokasi meninggal"
                               {...field}
                             />
                           </FormControl>
