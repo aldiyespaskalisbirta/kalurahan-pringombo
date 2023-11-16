@@ -192,7 +192,7 @@ async function main() {
       if (nik === "3403110403690002") {
         data_jabatan_di_kalurahan = "JAGABAYA";
       }
-      if (nik === "3403110903620001") {
+      if (nik === "3403112509940002") {
         data_jabatan_di_kalurahan = "ULU ULU";
       }
       if (nik === "3403111910680001") {

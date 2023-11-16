@@ -96,11 +96,35 @@ CREATE TABLE "SKTM" (
     "nik_anak" TEXT NOT NULL,
     "nama_instansi" TEXT,
     "fakultas_prodi" TEXT,
-    "kelas_semester" TEXT,
+    "kelas_semester" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "SKTM_pkey" PRIMARY KEY ("no_surat")
+);
+
+-- CreateTable
+CREATE TABLE "IzinKeramaian" (
+    "no_surat" TEXT NOT NULL,
+    "jenis_keramaian" TEXT,
+    "keperluan" TEXT,
+    "tempat_keramaian" TEXT,
+    "tanggal_keramaian" TIMESTAMP(3),
+    "waktu_keramaian" TEXT,
+    "lama_keramaian" TEXT,
+
+    CONSTRAINT "IzinKeramaian_pkey" PRIMARY KEY ("no_surat")
+);
+
+-- CreateTable
+CREATE TABLE "IzinKeramaianOnPenduduk" (
+    "pendudukId" TEXT NOT NULL,
+    "izinKeramaianId" TEXT NOT NULL,
+    "sebagai" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "IzinKeramaianOnPenduduk_pkey" PRIMARY KEY ("pendudukId","izinKeramaianId")
 );
 
 -- CreateIndex
@@ -123,3 +147,9 @@ ALTER TABLE "PengantarSKCK" ADD CONSTRAINT "PengantarSKCK_pendudukId_fkey" FOREI
 
 -- AddForeignKey
 ALTER TABLE "SKTM" ADD CONSTRAINT "SKTM_nik_ortu_fkey" FOREIGN KEY ("nik_ortu") REFERENCES "Penduduk"("nik") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "IzinKeramaianOnPenduduk" ADD CONSTRAINT "IzinKeramaianOnPenduduk_pendudukId_fkey" FOREIGN KEY ("pendudukId") REFERENCES "Penduduk"("nik") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "IzinKeramaianOnPenduduk" ADD CONSTRAINT "IzinKeramaianOnPenduduk_izinKeramaianId_fkey" FOREIGN KEY ("izinKeramaianId") REFERENCES "IzinKeramaian"("no_surat") ON DELETE RESTRICT ON UPDATE CASCADE;
