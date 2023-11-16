@@ -91,10 +91,7 @@ async function upsertPenduduk(
 
 async function main() {
   try {
-    const jsonData = fs.readFileSync(
-      "D:/COde/pringombo2/prisma/data_penduduk.json",
-      "utf-8"
-    );
+    const jsonData = fs.readFileSync("./data_penduduk.json", "utf-8");
     const data = JSON.parse(jsonData);
 
     for (const {
