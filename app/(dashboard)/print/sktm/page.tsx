@@ -10,7 +10,7 @@ async function SktmPage() {
           Tidak ada surat
         </h1>
       )}
-      {surat?.map((item) => (
+      {surat?.map((item: any) => (
         <ListNoSurat
           key={item.no_surat}
           nik={item.nik_ortu}
