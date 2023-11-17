@@ -15,6 +15,7 @@ function NavbarRoutes() {
   const pendudukPage = pathname?.startsWith("/penduduk");
   const printPage = pathname?.startsWith("/print");
   const deniedPage = pathname?.startsWith("/denied");
+  const beritaPage = pathname?.startsWith("/berita");
   return (
     <>
       {statistikPage && (
@@ -42,6 +43,13 @@ function NavbarRoutes() {
         <div className="hidden md:block">
           <h1 className="text-3xl font-semibold">
             Acsess <span className="text-sky-700">Denied</span>
+          </h1>
+        </div>
+      )}
+      {beritaPage && (
+        <div className="hidden md:block">
+          <h1 className="text-3xl font-semibold">
+            Berita Seputar <span className="text-sky-700">Pringombo</span>
           </h1>
         </div>
       )}

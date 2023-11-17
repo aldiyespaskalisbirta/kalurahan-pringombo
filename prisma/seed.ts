@@ -1,38 +1,8 @@
+import { countAge } from "D:/COde/pringombo2/lib/count-age";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 import fs from "fs";
-
-function countAge(birthDay: string): number {
-  const birthdayObj = new Date(birthDay);
-  const dateNow = new Date();
-
-  const year = birthdayObj.getFullYear();
-  const month = birthdayObj.getMonth();
-  const birthdayNumber = birthdayObj.getDate();
-
-  const tahunSekarang = dateNow.getFullYear();
-  const bulanSekarang = dateNow.getMonth();
-  const dateNowNumber = dateNow.getDate();
-
-  let age = tahunSekarang - year;
-
-  if (
-    bulanSekarang < month ||
-    (bulanSekarang === month && dateNowNumber < birthdayNumber)
-  ) {
-    age--;
-  }
-
-  return age;
-}
-
-function encodeData(data: string): string {
-  const encodedData = CryptoJS.enc.Base64.stringify(
-    CryptoJS.enc.Utf8.parse(data)
-  );
-  return encodedData;
-}
-
+import { encodeData } from "D:/COde/pringombo2/lib/encrypt/encode";
 async function upsertPenduduk(
   nik: string,
   nokk: string,
@@ -91,7 +61,10 @@ async function upsertPenduduk(
 
 async function main() {
   try {
-    const jsonData = fs.readFileSync("./data_penduduk.json", "utf-8");
+    const jsonData = fs.readFileSync(
+      "D:/COde/pringombo2/prisma/data_penduduk.json",
+      "utf-8"
+    );
     const data = JSON.parse(jsonData);
 
     for (const {
